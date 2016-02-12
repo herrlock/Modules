@@ -7,6 +7,9 @@ subprojects {
 	repositories {
 		mavenCentral()
 	}
+    eclipse.project {
+        name = "${rootProject.name}_${project.name}"
+    }
 }
 
 task assemble(group: 'Build', description: 'Dummy task to call all subprojects\' assemble-task') {
