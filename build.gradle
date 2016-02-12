@@ -12,3 +12,7 @@ subprojects {
 task assemble(group: 'Build', description: 'Dummy task to call all subprojects\' assemble-task') {
     // do nothing
 }
+
+task check(group: 'Verification', description: 'Dummy task to call all subprojects\' check-task') {
+    // do nothing
+}
