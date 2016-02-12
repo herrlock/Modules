@@ -1,5 +1,6 @@
 
 [
+    'log4j'
 ].each{
 	include it
 	project(":${it}").projectDir = file("modules/${it}")

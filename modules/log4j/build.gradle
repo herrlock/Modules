@@ -1,0 +1,7 @@
+
+apply plugin: 'java'
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:+'
+    runtime 'org.apache.logging.log4j:log4j-core:+'
+}
