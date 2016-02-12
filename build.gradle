@@ -18,9 +18,8 @@ subprojects {
     
     afterEvaluate { project ->
     	if(project.facets.contains('java')) {
-    		println project
     		dependencies {
-    			testCompile 'junit:junit:+'
+    			testCompile 'junit:junit:4.12'
     		}
     	}
     }
