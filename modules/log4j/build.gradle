@@ -1,7 +1,8 @@
 
 apply plugin: 'java'
+facets << 'java'
 
 dependencies {
-    compile 'org.apache.logging.log4j:log4j-api:+'
-    runtime 'org.apache.logging.log4j:log4j-core:+'
+    compile 'org.apache.logging.log4j:log4j-api:2+'
+    runtime 'org.apache.logging.log4j:log4j-core:2+'
 }
