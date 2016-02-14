@@ -1,0 +1,12 @@
+
+apply plugin: 'java'
+facets << 'java'
+
+dependencies {
+	compile project(':log4j')
+	compile 'org.hibernate:hibernate-core:5.1+'
+	compile 'com.zaxxer:HikariCP:2.4+'
+	
+	testRuntime 'org.mariadb.jdbc:mariadb-java-client:1.3+'
+	testRuntime 'com.h2database:h2:1.4+'
+}
