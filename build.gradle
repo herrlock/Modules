@@ -4,11 +4,25 @@ allprojects {
 }
 
 subprojects {
+	ext {
+		facets = []
+	}
+	
 	repositories {
 		mavenCentral()
 	}
+	
     eclipse.project {
         name = "${rootProject.name}_${project.name}"
+    }
+    
+    afterEvaluate { project ->
+    	if(project.facets.contains('java')) {
+    		println project
+    		dependencies {
+    			testCompile 'junit:junit:+'
+    		}
+    	}
     }
 }
 
