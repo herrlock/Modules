@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RandomNumber</title>
+	<meta charset="UTF-8" />
+	<script src="jquery-2.2.0.min.js"></script>
+	<script>
+		$.getJSON("models/randomnumber", function(response) {
+			$(function() {
+				$("#rndLoc").text(response.value);
+			});
+		});
+	</script>
+</head>
+<body>
+	Random Number: <span id="rndLoc"></span>
+</body>
+</html>

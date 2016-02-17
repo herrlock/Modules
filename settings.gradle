@@ -2,6 +2,7 @@ rootProject.name = 'Modules'
 
 [
 	'hibernate',
+    'jersey',
     'log4j',
     'servlet',
     'tomcatutils'
