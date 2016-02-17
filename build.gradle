@@ -20,8 +20,9 @@ subprojects {
     
     afterEvaluate { p ->
     	if(p.facets.contains('java')) {
-    		dependencies {
-    			testCompile 'junit:junit:4.12'
+    		dependencies.testCompile 'junit:junit:4.12'
+    		if(p.name != 'log4j') {
+    			dependencies.compile project(':log4j')
     		}
     	}
     	if(!p.hasProperty('version')) {
