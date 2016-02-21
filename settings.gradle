@@ -3,6 +3,7 @@ rootProject.name = 'Modules'
 [
 	'hibernate',
     'jersey',
+	'liquibase',
     'log4j',
     'servlet',
     'tomcatutils'

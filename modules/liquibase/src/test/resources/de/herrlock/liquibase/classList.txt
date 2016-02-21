@@ -1,0 +1,1 @@
+de.herrlock.liquibase.SomeObject
