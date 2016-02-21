@@ -4,6 +4,8 @@ allprojects {
 }
 
 subprojects {
+	group = "de.herrlock.modules.${project.name}"
+
 	ext {
 		facets = []
 	}
@@ -16,11 +18,14 @@ subprojects {
         name = "${rootProject.name}_${project.name}"
     }
     
-    afterEvaluate { project ->
-    	if(project.facets.contains('java')) {
+    afterEvaluate { p ->
+    	if(p.facets.contains('java')) {
     		dependencies {
     			testCompile 'junit:junit:4.12'
     		}
+    	}
+    	if(!p.hasProperty('version')) {
+    		version = '0.0.1-SNAPSHOT'
     	}
     }
 }
