@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="RandomNumber" version="3.0">
+
+	<display-name>RandomNumber</display-name>
+
+	<!-- welcome list -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<!-- Servlet-configuration -->
+	<servlet>
+		<servlet-name>RandomNumber</servlet-name>
+		<servlet-class>de.herrlock.servlet.RandomNumberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RandomNumber</servlet-name>
+		<url-pattern>/randomnumber</url-pattern>
+	</servlet-mapping>
+
+</web-app>
