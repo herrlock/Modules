@@ -34,7 +34,7 @@ public class TestSessionFactory {
                 session.save( o3 );
 
                 transaction.commit();
-            } catch ( Exception ex ) {
+            } catch ( RuntimeException ex ) {
                 session.getTransaction().rollback();
             }
         }

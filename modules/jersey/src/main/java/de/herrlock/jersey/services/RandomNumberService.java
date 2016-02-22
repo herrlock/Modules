@@ -19,12 +19,14 @@ import de.herrlock.jersey.objects.ValueObject;
 @Path( "/randomnumber" )
 public class RandomNumberService {
 
+    private final Random random = new Random();
+
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public ValueObject getRandomNumber( @HeaderParam( value = "Max-Random" ) Integer maxValue) {
         ValueObject valueObject = new ValueObject();
         int max = maxValue == null ? 100 : maxValue;
-        int nextInt = new Random().nextInt( max );
+        int nextInt = this.random.nextInt( max );
         valueObject.setValue( nextInt );
         return valueObject;
     }

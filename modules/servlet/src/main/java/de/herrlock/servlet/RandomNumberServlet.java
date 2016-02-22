@@ -16,12 +16,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RandomNumberServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
+    private final Random random = new Random();
+
     @Override
     protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
         String header = req.getHeader( "Max-Random" );
         try {
             int max = header == null ? 100 : Integer.parseInt( header );
-            int nextInt = new Random().nextInt( max );
+            int nextInt = this.random.nextInt( max );
             res.getWriter().println( nextInt );
         } catch ( NumberFormatException ex ) {
             res.setStatus( HttpServletResponse.SC_BAD_REQUEST );

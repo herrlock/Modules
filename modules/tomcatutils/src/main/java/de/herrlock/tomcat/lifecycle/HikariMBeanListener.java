@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import javax.management.JMX;
 import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
 import org.apache.catalina.LifecycleEvent;
@@ -78,7 +79,7 @@ public final class HikariMBeanListener implements LifecycleListener {
 
                 LOGGER.info( "Total: " + totalConnections + ", Idle: " + idleConnections + ", Active: " + activeConnections
                     + ", Waiting: " + threadsAwaitingConnection );
-            } catch ( Exception ex ) {
+            } catch ( MalformedObjectNameException | ReflectiveOperationException ex ) {
                 System.err.println( "Exception: " + ex + ", Cause: " + ex.getCause() );
             }
         }

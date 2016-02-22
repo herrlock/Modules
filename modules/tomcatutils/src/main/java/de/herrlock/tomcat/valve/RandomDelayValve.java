@@ -31,6 +31,8 @@ public class RandomDelayValve extends ValveBase {
      */
     protected String excludePatterns = "";
 
+    private final Random random = new Random();
+
     @Override
     public void invoke( final Request request, final Response response ) throws IOException, ServletException {
         String uri = request.getRequestURI();
@@ -49,7 +51,7 @@ public class RandomDelayValve extends ValveBase {
                 }
             }
             if ( matches ) {
-                long delay = defaultDelay + new Random().nextInt( randomDelay );
+                long delay = defaultDelay + this.random.nextInt( randomDelay );
                 System.out.println( request.getMethod() + ": " + uri + "   [" + delay + " ms]" );
                 try {
                     Thread.sleep( delay );
