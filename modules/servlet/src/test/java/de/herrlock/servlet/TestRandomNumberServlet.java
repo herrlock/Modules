@@ -19,9 +19,9 @@ import org.mockito.Mockito;
 
 public class TestRandomNumberServlet {
 
-    private final HttpServletRequest req = Mockito.mock( HttpServletRequest.class );;
-    private final HttpServletResponse res = Mockito.mock( HttpServletResponse.class );;
-    private final RandomNumberServlet servlet = new RandomNumberServlet();;
+    private final HttpServletRequest req = Mockito.mock( HttpServletRequest.class );
+    private final HttpServletResponse res = Mockito.mock( HttpServletResponse.class );
+    private final RandomNumberServlet servlet = new RandomNumberServlet();
 
     @Test
     public void testSuccess() throws ServletException, IOException {
