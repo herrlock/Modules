@@ -1,7 +1,5 @@
 
-apply plugin: 'eclipse-wtp'
-apply plugin: 'war'
-facets << 'java' << 'web'
+apply from: new File(gdir, 'war.gradle')
 
 version = '1.0.0-SNAPSHOT'
 

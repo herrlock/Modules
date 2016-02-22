@@ -1,6 +1,5 @@
 
-apply plugin: 'java'
-facets << 'java'
+apply from: new File(gdir, 'java.gradle')
 
 version = '1.0.0-SNAPSHOT'
 

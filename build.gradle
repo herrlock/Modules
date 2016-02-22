@@ -1,33 +1,21 @@
 
 allprojects {
     apply plugin: 'eclipse'
+    ext {
+    	gdir = new File(rootProject.projectDir, 'gradle')
+    }
 }
 
 subprojects {
-	group = "de.herrlock.modules.${project.name}"
+	group "de.herrlock.modules.${project.name}"
+	version '0.0.1-SNAPSHOT'
 
-	ext {
-		facets = []
-	}
-	
 	repositories {
 		mavenCentral()
 	}
 	
     eclipse.project {
         name = "${rootProject.name}_${project.name}"
-    }
-    
-    afterEvaluate { p ->
-    	if(p.facets.contains('java')) {
-    		dependencies.testCompile 'junit:junit:4.12'
-    		if(p.name != 'log4j') {
-    			dependencies.compile project(':log4j')
-    		}
-    	}
-    	if(!p.hasProperty('version')) {
-    		version = '0.0.1-SNAPSHOT'
-    	}
     }
 }
 
