@@ -1,4 +1,5 @@
 
+apply plugin: 'build-dashboard'
 allprojects {
     apply plugin: 'eclipse'
     ext {
