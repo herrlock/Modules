@@ -1,7 +1,7 @@
 
 apply from: new File(gdir, 'war.gradle')
 
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0'
 
 dependencies {
 	providedCompile 'javax.servlet:servlet-api:2.5'
