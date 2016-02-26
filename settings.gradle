@@ -2,11 +2,11 @@ rootProject.name = 'Modules'
 
 [
 	'hibernate',
-    'jersey',
+	'jersey',
 	'liquibase',
-    'log4j',
-    'servlet',
-    'tomcatutils'
+	'log4j',
+	'servlet',
+	'tomcatutils'
 ].each{
 	include it
 	project(":${it}").projectDir = file("modules/${it}")

@@ -18,7 +18,7 @@ tasks.withType(FindBugs) {
 
 dependencies {
 	if(name != 'log4j') {
-		dependencies.compile project(':log4j')
+		compile project(':log4j')
 	}
 	
 	testCompile 'junit:junit:4.12'

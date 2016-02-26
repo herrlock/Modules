@@ -3,3 +3,8 @@ apply from: new File(rootProject.projectDir, 'gradle/java.gradle')
 
 apply plugin: 'eclipse-wtp'
 apply plugin: 'war'
+
+task rawWar(type: War) {
+	archiveName = "${project.name}.war"
+}
+assemble.dependsOn rawWar
