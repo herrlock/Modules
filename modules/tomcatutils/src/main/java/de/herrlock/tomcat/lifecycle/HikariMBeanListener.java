@@ -80,7 +80,7 @@ public final class HikariMBeanListener implements LifecycleListener {
                 LOGGER.info( "Total: " + totalConnections + ", Idle: " + idleConnections + ", Active: " + activeConnections
                     + ", Waiting: " + threadsAwaitingConnection );
             } catch ( MalformedObjectNameException | ReflectiveOperationException ex ) {
-                System.err.println( "Exception: " + ex + ", Cause: " + ex.getCause() );
+                LOGGER.warn( "Exception: " + ex + ", Cause: " + ex.getCause() );
             }
         }
     }
