@@ -1,6 +1,6 @@
 package de.herrlock.liquibase;
 
-import static de.herrlock.liquibase.SessionFactoryWrapper.SFW;
+import static de.herrlock.liquibase.LiquibaseSessionFactoryWrapper.SFW;
 
 import java.util.List;
 
@@ -47,9 +47,11 @@ public class TestSessionFactoryWrapper {
 
     /**
      * Clean the session-factory
+     * 
+     * @throws Exception
      */
     @After
-    public void after() {
+    public void after() throws Exception {
         SFW.close();
     }
 
@@ -79,9 +81,11 @@ public class TestSessionFactoryWrapper {
 
     /**
      * select all objects, close the session-factory and use a new one
+     * 
+     * @throws Exception
      */
     @Test
-    public void multiSession() {
+    public void multiSession() throws Exception {
         try ( Session session = SFW.getTestSession() ) {
             // select all SomeObject-instances
             List<?> list = session.createCriteria( SomeObject.class ).list();

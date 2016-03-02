@@ -1,7 +1,5 @@
 package de.herrlock.hibernate;
 
-import static de.herrlock.hibernate.SessionFactoryWrapper.SFW;
-
 import java.util.List;
 
 import org.hibernate.Session;
@@ -13,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestSessionFactoryWrapper {
+
+    public static final HibernateSessionFactoryWrapper SFW = HibernateSessionFactoryWrapper.SFW;
 
     /**
      * open a test-session and add three objects to the db
@@ -47,9 +47,11 @@ public class TestSessionFactoryWrapper {
 
     /**
      * Clean the session-factory
+     * 
+     * @throws Exception
      */
     @After
-    public void after() {
+    public void after() throws Exception {
         SFW.close();
     }
 
@@ -79,9 +81,11 @@ public class TestSessionFactoryWrapper {
 
     /**
      * select all objects, close the session-factory and use a new one
+     * 
+     * @throws Exception
      */
     @Test
-    public void multiSession() {
+    public void multiSession() throws Exception {
         try ( Session session = SFW.getTestSession() ) {
             // select all SomeObject-instances
             List<?> list = session.createCriteria( SomeObject.class ).list();
