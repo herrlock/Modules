@@ -50,7 +50,7 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
      * 
      * @return a test-session
      */
-    public Session getTestSession( final String testSessionFileProperty, final String testSessionDefaultFile ) {
+    protected Session getTestSession( final String testSessionFileProperty, final String testSessionDefaultFile ) {
         final String testFileLocation = System.getProperty( testSessionFileProperty, testSessionDefaultFile );
         LOG.debug( "Using {} as hibernate-configuration", testFileLocation );
         SessionBuilder sessionBuilder = getSessionFactory( SessionStatus.TEST, testFileLocation ).withOptions();
