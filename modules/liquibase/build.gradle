@@ -8,6 +8,5 @@ dependencies {
 	compile 'org.liquibase:liquibase-core:3.4.2'
 	runtime 'org.apache.logging.log4j:log4j-liquibase:2.5'
 	
-	testRuntime 'org.mariadb.jdbc:mariadb-java-client:1.3.5'
 	testRuntime 'com.h2database:h2:1.4.191'
 }
