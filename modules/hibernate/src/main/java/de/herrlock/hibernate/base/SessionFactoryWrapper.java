@@ -31,14 +31,17 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
     public abstract Session getTestSession();
 
     /**
-     * Creates a Session from the configuration-file {@value PROD_SESSION_FILE}
+     * Creates a Session.
      * 
      * @param prodSessionFileProperty
+     *            the system-property-key to look up
      * @param prodSessionDefaultFile
+     *            the default-location to search at
      * 
      * @return a session
      */
     protected Session getSession( final String prodSessionFileProperty, final String prodSessionDefaultFile ) {
+        LOG.entry( prodSessionFileProperty, prodSessionDefaultFile );
         final String prodFileLocation = System.getProperty( prodSessionFileProperty, prodSessionDefaultFile );
         LOG.debug( "Using {} as hibernate-configuration", prodFileLocation );
         SessionBuilder sessionBuilder = getSessionFactory( SessionStatus.PROD, prodFileLocation ).withOptions();
@@ -46,11 +49,17 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
     }
 
     /**
-     * Creates a Session from the configuration-file {@value TEST_SESSION_FILE}
+     * Creates a Test-Session
+     * 
+     * @param testSessionFileProperty
+     *            the system-property-key to look up
+     * @param testSessionDefaultFile
+     *            the default-location to search at
      * 
      * @return a test-session
      */
     protected Session getTestSession( final String testSessionFileProperty, final String testSessionDefaultFile ) {
+        LOG.entry( testSessionFileProperty, testSessionDefaultFile );
         final String testFileLocation = System.getProperty( testSessionFileProperty, testSessionDefaultFile );
         LOG.debug( "Using {} as hibernate-configuration", testFileLocation );
         SessionBuilder sessionBuilder = getSessionFactory( SessionStatus.TEST, testFileLocation ).withOptions();
