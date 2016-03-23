@@ -11,8 +11,11 @@ import javax.servlet.ServletException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.valves.ValveBase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RandomDelayValve extends ValveBase {
+    private static final Logger LOG = LogManager.getLogger();
 
     /**
      * The file where the configuration is stored
@@ -37,8 +40,8 @@ public class RandomDelayValve extends ValveBase {
     public void invoke( final Request request, final Response response ) throws IOException, ServletException {
         String uri = request.getRequestURI();
         Properties delayConf = loadConfigFromDelayFile();
-        int defaultDelay = Integer.parseInt( delayConf.getProperty( "default", "" + this.defaultDelay ) );
-        int randomDelay = Integer.parseInt( delayConf.getProperty( "random", "" + this.randomDelay ) );
+        int defaultDelay = Integer.parseInt( delayConf.getProperty( "default", String.valueOf( this.defaultDelay ) ) );
+        int randomDelay = Integer.parseInt( delayConf.getProperty( "random", String.valueOf( this.randomDelay ) ) );
         boolean enabled = Boolean.parseBoolean( delayConf.getProperty( "enabled", "false" ) );
 
         if ( enabled ) {
@@ -52,11 +55,11 @@ public class RandomDelayValve extends ValveBase {
             }
             if ( matches ) {
                 long delay = defaultDelay + this.random.nextInt( randomDelay );
-                System.out.println( request.getMethod() + ": " + uri + "   [" + delay + " ms]" );
+                LOG.info( "{}: {}   [{} ms]", request.getMethod(), uri, delay );
                 try {
                     Thread.sleep( delay );
                 } catch ( InterruptedException e ) {
-                    System.err.println( "someone waked me up : " + e.getMessage() );
+                    LOG.error( "someone waked me up : " + e.getMessage() );
                 }
             }
         }
@@ -69,8 +72,8 @@ public class RandomDelayValve extends ValveBase {
         try ( FileInputStream configStream = new FileInputStream(
             new File( System.getProperty( "catalina.home" ), this.delayFile ) ) ) {
             p.load( configStream );
-        } catch ( NullPointerException | IOException e ) {
-            System.err.println( e );
+        } catch ( IOException e ) {
+            LOG.error( e );
         }
         return p;
     }

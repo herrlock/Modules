@@ -21,7 +21,7 @@ public final class HikariMBeanListener implements LifecycleListener {
     private final Timer timer = new Timer( true );
 
     @Override
-    public void lifecycleEvent( LifecycleEvent event ) {
+    public void lifecycleEvent( final LifecycleEvent event ) {
         String type = event.getType();
         if ( "start".equals( type ) ) {
             start();
@@ -61,7 +61,7 @@ public final class HikariMBeanListener implements LifecycleListener {
                 GET_ACTIVE_CONNECTIONS = HIKARI_POOL_MBEAN_CLASS.getMethod( "getActiveConnections" );
                 GET_THREADS_AWAITING_CONNECTION = HIKARI_POOL_MBEAN_CLASS.getMethod( "getThreadsAwaitingConnection" );
             } catch ( ReflectiveOperationException ex ) {
-                throw new RuntimeException( ex );
+                throw new IllegalStateException( ex );
             }
         }
 
@@ -77,10 +77,10 @@ public final class HikariMBeanListener implements LifecycleListener {
                 Object activeConnections = GET_ACTIVE_CONNECTIONS.invoke( poolProxy );
                 Object threadsAwaitingConnection = GET_THREADS_AWAITING_CONNECTION.invoke( poolProxy );
 
-                LOGGER.info( "Total: " + totalConnections + ", Idle: " + idleConnections + ", Active: " + activeConnections
-                    + ", Waiting: " + threadsAwaitingConnection );
+                LOGGER.info( "Total: {}, Idle: {}, Active: {}, Waiting: {}", totalConnections, idleConnections, activeConnections,
+                    threadsAwaitingConnection );
             } catch ( MalformedObjectNameException | ReflectiveOperationException ex ) {
-                LOGGER.warn( "Exception: " + ex + ", Cause: " + ex.getCause() );
+                LOGGER.warn( "Exception: {}, Cause: {}", ex, ex.getCause() );
             }
         }
     }

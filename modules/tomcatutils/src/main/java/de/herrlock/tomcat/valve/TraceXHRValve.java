@@ -28,15 +28,15 @@ public class TraceXHRValve extends ValveBase {
         boolean matches = checkOnMatch( uri );
         if ( !matches ) {
             StringBuilder sb = new StringBuilder();
-            sb.append( req.getMethod() );
-            sb.append( ": " );
-            sb.append( uri );
+            sb.append( req.getMethod() )//
+                .append( ": " )//
+                .append( uri );
             String queryString = req.getQueryString();
             if ( queryString != null ) {
-                sb.append( '?' );
-                sb.append( queryString );
+                sb.append( '?' )//
+                    .append( queryString );
             }
-            System.out.println( sb.toString() );
+            LOG.info( sb.toString() );
         }
         // continue
         LOG.exit();
@@ -46,11 +46,9 @@ public class TraceXHRValve extends ValveBase {
     protected boolean checkOnMatch( final String uri ) {
         final String[] splitPattern = this.excludePattern.split( "'" );
         for ( String pattern : splitPattern ) {
-            if ( !pattern.isEmpty() ) {
-                if ( uri.matches( pattern + ".*" ) ) {
-                    LOG.debug( "Found match, ignoring uri" );
-                    return true;
-                }
+            if ( !pattern.isEmpty() && uri.matches( pattern + ".*" ) ) {
+                LOG.debug( "Found match, ignoring uri" );
+                return true;
             }
         }
         return false;
