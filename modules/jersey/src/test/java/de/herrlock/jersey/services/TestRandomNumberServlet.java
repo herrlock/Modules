@@ -10,7 +10,7 @@ import de.herrlock.jersey.objects.ValueObject;
 
 public class TestRandomNumberServlet {
 
-    private RandomNumberService servlet = new RandomNumberService();
+    private final RandomNumberService servlet = new RandomNumberService();
 
     @Test
     public void testSuccess() {

@@ -14,7 +14,7 @@ public final class ValueObject {
         return this.value;
     }
 
-    public void setValue( int value ) {
+    public void setValue( final int value ) {
         this.value = value;
     }
 

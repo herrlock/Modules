@@ -23,7 +23,7 @@ public class RandomNumberService {
 
     @GET
     @Produces( MediaType.APPLICATION_JSON )
-    public ValueObject getRandomNumber( @HeaderParam( value = "Max-Random" ) Integer maxValue) {
+    public ValueObject getRandomNumber( @HeaderParam( value = "Max-Random" ) final Integer maxValue ) {
         ValueObject valueObject = new ValueObject();
         int max = maxValue == null ? 100 : maxValue;
         int nextInt = this.random.nextInt( max );
