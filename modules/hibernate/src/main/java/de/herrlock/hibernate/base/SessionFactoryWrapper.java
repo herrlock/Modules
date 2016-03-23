@@ -81,7 +81,7 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
     protected abstract SessionFactoryBase createSessionFactoryBase( final SessionStatus status, final String configfileName );
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         if ( this.sessionFactory != null ) {
             this.sessionFactory.close();
             this.sessionFactory = null;

@@ -1,5 +1,7 @@
 package de.herrlock.hibernate.base;
 
+import java.io.IOException;
+
 import org.hibernate.SessionFactory;
 
 /**
@@ -31,5 +33,8 @@ public abstract class SessionFactoryBase implements AutoCloseable {
     }
 
     protected abstract SessionFactory buildSessionFactory();
+
+    @Override
+    public abstract void close() throws IOException;
 
 }
