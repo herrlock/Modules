@@ -18,7 +18,7 @@ import liquibase.exception.LiquibaseException;
  * 
  * @author HerrLock
  */
-public class LiquibaseSessionFactory extends SessionFactoryBase {
+public final class LiquibaseSessionFactory extends SessionFactoryBase {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final AtomicBoolean DATABASE_INITIALIZED = new AtomicBoolean( false );
@@ -58,7 +58,7 @@ public class LiquibaseSessionFactory extends SessionFactoryBase {
         return this.sessionFactory;
     }
 
-    private static void initializeDatabase( Session session, String... contexts ) {
+    private static void initializeDatabase( final Session session, final String... contexts ) {
         LOGGER.debug( "initializing database in session {}", session );
         LiquibaseException error = session.doReturningWork( new DatabaseUpdateWork( session, contexts ) );
         if ( error == null ) {
@@ -69,16 +69,18 @@ public class LiquibaseSessionFactory extends SessionFactoryBase {
     }
 
     @Override
-    public synchronized void close() {
-        if ( !this.open ) {
-            LOGGER.warn( "SessionFactory aready closed" );
-        }
-        if ( this.sessionFactory != null ) {
-            this.sessionFactory.close();
-            this.sessionFactory = null;
-            this.open = false;
-            this.status = SessionStatus.UNSET;
-            DATABASE_INITIALIZED.set( false );
+    public void close() {
+        synchronized ( LiquibaseSessionFactory.class ) {
+            if ( !this.open ) {
+                LOGGER.warn( "SessionFactory aready closed" );
+            }
+            if ( this.sessionFactory != null ) {
+                this.sessionFactory.close();
+                this.sessionFactory = null;
+                this.open = false;
+                this.status = SessionStatus.UNSET;
+                DATABASE_INITIALIZED.set( false );
+            }
         }
     }
 

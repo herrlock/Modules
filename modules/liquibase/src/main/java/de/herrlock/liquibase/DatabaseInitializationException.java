@@ -6,7 +6,7 @@ public class DatabaseInitializationException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public DatabaseInitializationException( LiquibaseException cause ) {
+    public DatabaseInitializationException( final LiquibaseException cause ) {
         super( cause );
     }
 

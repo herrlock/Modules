@@ -18,7 +18,7 @@ public class SomeObject {
         return this.id;
     }
 
-    public void setId( long id ) {
+    public void setId( final long id ) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class SomeObject {
         return this.name;
     }
 
-    public void setName( String name ) {
+    public void setName( final String name ) {
         this.name = name;
     }
 
@@ -34,7 +34,7 @@ public class SomeObject {
         return this.type;
     }
 
-    public void setType( String type ) {
+    public void setType( final String type ) {
         this.type = type;
     }
 

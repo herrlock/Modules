@@ -26,13 +26,13 @@ public class DatabaseUpdateWork implements ReturningWork<LiquibaseException> {
     private final Session session;
     private final String[] contexts;
 
-    public DatabaseUpdateWork( Session session, String... contexts ) {
+    public DatabaseUpdateWork( final Session session, final String... contexts ) {
         this.session = session;
         this.contexts = contexts;
     }
 
     @Override
-    public LiquibaseException execute( Connection connection ) throws SQLException {
+    public LiquibaseException execute( final Connection connection ) throws SQLException {
         Transaction transaction = null;
         try {
             ResourceAccessor resourceAccessor = new ClassLoaderResourceAccessor( DatabaseUpdateWork.class.getClassLoader() );

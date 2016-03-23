@@ -2,8 +2,10 @@ package de.herrlock.liquibase;
 
 import static de.herrlock.liquibase.LiquibaseSessionFactoryWrapper.SFW;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -20,9 +22,8 @@ public class TestSessionFactoryWrapper {
     @Before
     public void initDB() {
         try ( Session session = SFW.getTestSession() ) {
+            final Transaction transaction = session.beginTransaction();
             try {
-                Transaction transaction = session.beginTransaction();
-
                 SomeObject o1 = new SomeObject();
                 o1.setName( "o1" );
                 o1.setType( "red" );
@@ -39,8 +40,8 @@ public class TestSessionFactoryWrapper {
                 session.save( o3 );
 
                 transaction.commit();
-            } catch ( RuntimeException ex ) {
-                session.getTransaction().rollback();
+            } catch ( HibernateException ex ) {
+                transaction.rollback();
             }
         }
     }
@@ -51,7 +52,7 @@ public class TestSessionFactoryWrapper {
      * @throws Exception
      */
     @After
-    public void after() throws Exception {
+    public void after() throws IOException {
         SFW.close();
     }
 
@@ -85,7 +86,7 @@ public class TestSessionFactoryWrapper {
      * @throws Exception
      */
     @Test
-    public void multiSession() throws Exception {
+    public void multiSession() throws IOException {
         try ( Session session = SFW.getTestSession() ) {
             // select all SomeObject-instances
             List<?> list = session.createCriteria( SomeObject.class ).list();
