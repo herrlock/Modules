@@ -6,7 +6,7 @@ import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Main {
+public final class Main {
 
     private static final Logger LOG = LogManager.getLogger();
     private static final Random RANDOM = new Random();
@@ -20,7 +20,11 @@ public class Main {
         LOG.exit();
     }
 
-    public static int randomInt( int max ) {
+    public static int randomInt( final int max ) {
         return RANDOM.nextInt( max );
+    }
+
+    private Main() {
+        // do nothing
     }
 }
