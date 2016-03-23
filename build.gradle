@@ -27,3 +27,7 @@ task assemble(group: 'Build', description: 'Dummy task to call all subprojects\'
 task check(group: 'Verification', description: 'Dummy task to call all subprojects\' check-task') {
     // do nothing
 }
+
+task clean(type: Delete) {
+	delete project.buildDir
+}
