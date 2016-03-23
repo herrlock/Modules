@@ -21,7 +21,7 @@ public class RandomNumberServlet extends HttpServlet {
     private final Random random = new Random();
 
     @Override
-    protected void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
+    protected void doGet( final HttpServletRequest req, final HttpServletResponse res ) throws ServletException, IOException {
         String header = req.getHeader( "Max-Random" );
         try {
             int max = header == null ? 100 : Integer.parseInt( header );
