@@ -3,6 +3,7 @@ apply plugin: 'java'
 sourceCompatibility = '1.7'
 
 apply plugin: 'findbugs'
+apply plugin: 'pmd'
 apply plugin: 'jacoco'
 
 findbugs {
@@ -15,6 +16,11 @@ tasks.withType(FindBugs) {
 		xml.enabled = false
 		html.enabled = true
 	}
+}
+
+pmd {
+	ignoreFailures = true
+	ruleSetFiles = files("${rootProject.projectDir}/misc/pmd.rulesets.xml")
 }
 
 apply plugin: 'maven-publish'
