@@ -26,14 +26,14 @@ public final class HttpExecutor {
     /**
      * delegate to {@link HttpClient#execute(HttpUriRequest)}
      */
-    public static HttpResponse execute( HttpUriRequest request ) throws IOException, ClientProtocolException {
+    public static HttpResponse execute( final HttpUriRequest request ) throws IOException, ClientProtocolException {
         return defaultClient.execute( request );
     }
 
     /**
      * delegate to {@link HttpClient#execute(HttpUriRequest, HttpContext)}
      */
-    public static HttpResponse execute( HttpUriRequest request, HttpContext context )
+    public static HttpResponse execute( final HttpUriRequest request, final HttpContext context )
         throws IOException, ClientProtocolException {
         return defaultClient.execute( request, context );
     }
@@ -41,14 +41,15 @@ public final class HttpExecutor {
     /**
      * delegate to {@link HttpClient#execute(HttpHost, HttpRequest)}
      */
-    public static HttpResponse execute( HttpHost target, HttpRequest request ) throws IOException, ClientProtocolException {
+    public static HttpResponse execute( final HttpHost target, final HttpRequest request )
+        throws IOException, ClientProtocolException {
         return defaultClient.execute( target, request );
     }
 
     /**
      * delegate to {@link HttpClient#execute(HttpHost, HttpRequest, HttpContext)}
      */
-    public static HttpResponse execute( HttpHost target, HttpRequest request, HttpContext context )
+    public static HttpResponse execute( final HttpHost target, final HttpRequest request, final HttpContext context )
         throws IOException, ClientProtocolException {
         return defaultClient.execute( target, request, context );
     }
@@ -56,7 +57,7 @@ public final class HttpExecutor {
     /**
      * delegate to {@link HttpClient#execute(HttpUriRequest, ResponseHandler)}
      */
-    public static <T> T execute( HttpUriRequest request, ResponseHandler<? extends T> responseHandler )
+    public static <T> T execute( final HttpUriRequest request, final ResponseHandler<? extends T> responseHandler )
         throws IOException, ClientProtocolException {
         return defaultClient.execute( request, responseHandler );
     }
@@ -64,24 +65,25 @@ public final class HttpExecutor {
     /**
      * delegate to {@link HttpClient#execute(HttpUriRequest, ResponseHandler, HttpContext)}
      */
-    public static <T> T execute( HttpUriRequest request, ResponseHandler<? extends T> responseHandler, HttpContext context )
-        throws IOException, ClientProtocolException {
+    public static <T> T execute( final HttpUriRequest request, final ResponseHandler<? extends T> responseHandler,
+        final HttpContext context ) throws IOException, ClientProtocolException {
         return defaultClient.execute( request, responseHandler, context );
     }
 
     /**
      * delegate to {@link HttpClient#execute(HttpHost, HttpRequest, ResponseHandler)}
      */
-    public static <T> T execute( HttpHost target, HttpRequest request, ResponseHandler<? extends T> responseHandler )
-        throws IOException, ClientProtocolException {
+    public static <T> T execute( final HttpHost target, final HttpRequest request,
+        final ResponseHandler<? extends T> responseHandler ) throws IOException, ClientProtocolException {
         return defaultClient.execute( target, request, responseHandler );
     }
 
     /**
      * delegate to {@link HttpClient#execute(HttpHost, HttpRequest, ResponseHandler)}
      */
-    public static <T> T execute( HttpHost target, HttpRequest request, ResponseHandler<? extends T> responseHandler,
-        HttpContext context ) throws IOException, ClientProtocolException {
+    public static <T> T execute( final HttpHost target, final HttpRequest request,
+        final ResponseHandler<? extends T> responseHandler, final HttpContext context )
+        throws IOException, ClientProtocolException {
         return defaultClient.execute( target, request, responseHandler, context );
     }
 
@@ -91,7 +93,7 @@ public final class HttpExecutor {
      * @param newClient
      *            The HttpClient to use from now on. Must not be {@code null}
      */
-    public static void setClient( HttpClient newClient ) {
+    public static void setClient( final HttpClient newClient ) {
         defaultClient = Objects.requireNonNull( newClient );
     }
 
