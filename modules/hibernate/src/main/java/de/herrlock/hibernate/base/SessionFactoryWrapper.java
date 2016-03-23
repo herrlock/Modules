@@ -66,16 +66,18 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
         return sessionBuilder.openSession();
     }
 
-    private synchronized SessionFactory getSessionFactory( final SessionStatus status, final String configfileName ) {
-        LOG.entry( configfileName );
-        if ( this.sessionFactory == null ) {
-            this.sessionFactory = createSessionFactoryBase( status, configfileName );
+    private SessionFactory getSessionFactory( final SessionStatus status, final String configfileName ) {
+        synchronized ( SessionFactoryWrapper.class ) {
+            LOG.entry( configfileName );
+            if ( this.sessionFactory == null ) {
+                this.sessionFactory = createSessionFactoryBase( status, configfileName );
+            }
+            if ( this.sessionFactory.getStatus() != status ) {
+                LOG.warn( "returning SessionFactory with SessionStatus {} but requested was {}", this.sessionFactory.getStatus(),
+                    status );
+            }
+            return this.sessionFactory.getSessionFactory();
         }
-        if ( this.sessionFactory.getStatus() != status ) {
-            LOG.warn( "returning SessionFactory with SessionStatus {} but requested was {}", this.sessionFactory.getStatus(),
-                status );
-        }
-        return this.sessionFactory.getSessionFactory();
     }
 
     protected abstract SessionFactoryBase createSessionFactoryBase( final SessionStatus status, final String configfileName );
@@ -119,7 +121,7 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
      *            the url to read from
      * @return a list of classes that are supposed to be DTO-classes for Hibernate
      */
-    private static List<String> loadDtoClassesFrom( URL url ) {
+    private static List<String> loadDtoClassesFrom( final URL url ) {
         return loadDtoClassesFrom( url, StandardCharsets.UTF_8 );
     }
 

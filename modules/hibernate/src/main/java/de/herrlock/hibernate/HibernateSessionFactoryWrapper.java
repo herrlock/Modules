@@ -2,14 +2,16 @@ package de.herrlock.hibernate;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 
 import de.herrlock.hibernate.base.SessionFactoryBase;
 import de.herrlock.hibernate.base.SessionFactoryWrapper;
 import de.herrlock.hibernate.base.SessionStatus;
 
-public class HibernateSessionFactoryWrapper extends SessionFactoryWrapper {
-    // private static final Logger LOG = LogManager.getLogger();
+public final class HibernateSessionFactoryWrapper extends SessionFactoryWrapper {
+    private static final Logger LOG = LogManager.getLogger();
 
     public static final String PROD_SESSION_FILE = "hibernate.cfg.xml";
     public static final String PROD_SESSION_FILE_PROPERTY = "de.herrlock.hibernate.cfg";
@@ -34,6 +36,7 @@ public class HibernateSessionFactoryWrapper extends SessionFactoryWrapper {
      */
     @Override
     public Session getSession() {
+        LOG.entry();
         return getSession( PROD_SESSION_FILE_PROPERTY, PROD_SESSION_FILE );
     }
 
@@ -44,6 +47,7 @@ public class HibernateSessionFactoryWrapper extends SessionFactoryWrapper {
      */
     @Override
     public Session getTestSession() {
+        LOG.entry();
         return getTestSession( TEST_SESSION_FILE_PROPERTY, TEST_SESSION_FILE );
     }
 

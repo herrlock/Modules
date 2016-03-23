@@ -15,7 +15,7 @@ import de.herrlock.hibernate.base.SessionStatus;
  * 
  * @author HerrLock
  */
-public class HibernateSessionFactory extends SessionFactoryBase {
+public final class HibernateSessionFactory extends SessionFactoryBase {
     private static final Logger LOG = LogManager.getLogger();
 
     private boolean open = true;
@@ -51,15 +51,17 @@ public class HibernateSessionFactory extends SessionFactoryBase {
     }
 
     @Override
-    public synchronized void close() {
-        if ( !this.open ) {
-            LOG.warn( "SessionFactory aready closed" );
-        }
-        if ( this.sessionFactory != null ) {
-            this.sessionFactory.close();
-            this.sessionFactory = null;
-            this.open = false;
-            setStatus( SessionStatus.UNSET );
+    public void close() {
+        synchronized ( HibernateSessionFactory.class ) {
+            if ( !this.open ) {
+                LOG.warn( "SessionFactory aready closed" );
+            }
+            if ( this.sessionFactory != null ) {
+                this.sessionFactory.close();
+                this.sessionFactory = null;
+                this.open = false;
+                setStatus( SessionStatus.UNSET );
+            }
         }
     }
 
