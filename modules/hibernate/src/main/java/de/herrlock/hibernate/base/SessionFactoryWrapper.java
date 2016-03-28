@@ -1,21 +1,12 @@
 package de.herrlock.hibernate.base;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
-
-import de.herrlock.hibernate.HibernateSessionFactoryWrapper;
 
 /**
  * @author HerrLock
@@ -93,64 +84,6 @@ public abstract class SessionFactoryWrapper implements AutoCloseable {
     @Override
     public String toString() {
         return java.text.MessageFormat.format( "SessionFactoryWrapper (Factory: {0})", this.sessionFactory );
-    }
-
-    protected static List<String> getDtoClasses( final String classListProperty, final String classListDefaultFile ) {
-        String classListLocation = System.getProperty( classListProperty );
-        if ( classListLocation == null ) {
-            // no custom location set, use default-location
-            return loadDtoClassesFrom( HibernateSessionFactoryWrapper.class.getResource( classListDefaultFile ) );
-        }
-        /* classListLocation != null */
-        // custom location set, use given location
-        URL resource = HibernateSessionFactoryWrapper.class.getResource( classListLocation );
-        if ( resource == null ) {
-            // custom class-list cannot be found
-            return loadDtoClassesFrom( HibernateSessionFactoryWrapper.class.getResource( classListDefaultFile ) );
-        }
-        /* resource != null */
-        // custom class-list could be located
-        return loadDtoClassesFrom( resource );
-    }
-
-    /**
-     * Reads all lines from the resource at the given {@link URL}, skips empty lines (where {@code line.trim().isEmpty() == true}
-     * ). Assumes the input is UTF-8
-     * 
-     * @param url
-     *            the url to read from
-     * @return a list of classes that are supposed to be DTO-classes for Hibernate
-     */
-    private static List<String> loadDtoClassesFrom( final URL url ) {
-        return loadDtoClassesFrom( url, StandardCharsets.UTF_8 );
-    }
-
-    /**
-     * Reads all lines from the resource at the given {@link URL}, skips empty lines (where {@code line.trim().isEmpty() == true}
-     * ).
-     * 
-     * @param url
-     *            the url to read from
-     * @param charset
-     *            the charset to read with
-     * @return a list of classes that are supposed to be DTO-classes for Hibernate
-     */
-    private static List<String> loadDtoClassesFrom( final URL url, final Charset charset ) {
-        LOG.info( "Loading DTO-classes from: {}", url );
-        List<String> result = new ArrayList<>();
-        if ( url != null ) {
-            try ( BufferedReader reader = new BufferedReader( new InputStreamReader( url.openStream(), charset ) ) ) {
-                String nextLine;
-                while ( ( nextLine = reader.readLine() ) != null ) {
-                    if ( !nextLine.trim().isEmpty() ) {
-                        result.add( nextLine.trim() );
-                    }
-                }
-            } catch ( IOException ex ) {
-                LOG.fatal( "Could not read from URL", ex );
-            }
-        }
-        return result;
     }
 
 }

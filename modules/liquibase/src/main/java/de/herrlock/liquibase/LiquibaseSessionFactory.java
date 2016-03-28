@@ -1,15 +1,15 @@
 package de.herrlock.liquibase;
 
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.ParameterizedMessage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import de.herrlock.hibernate.base.EntityObject;
 import de.herrlock.hibernate.base.SessionFactoryBase;
 import de.herrlock.hibernate.base.SessionStatus;
 import liquibase.exception.LiquibaseException;
@@ -36,15 +36,10 @@ public final class LiquibaseSessionFactory extends SessionFactoryBase {
             Configuration configuration = new Configuration();
 
             // load dto-classes
-            List<String> dtoClasses = LiquibaseSessionFactoryWrapper.getDtoClasses();
-            for ( String dtoClassName : dtoClasses ) {
-                LOGGER.info( "Add annotated class: {}", dtoClassName );
-                try {
-                    Class<?> dtoClass = Class.forName( dtoClassName );
-                    configuration.addAnnotatedClass( dtoClass );
-                } catch ( ClassNotFoundException ex ) {
-                    LOGGER.error( new ParameterizedMessage( "Could not find class {}", dtoClasses ), ex );
-                }
+            Set<Class<? extends EntityObject>> dtoClasses = getDtoClasses();
+            for ( Class<? extends EntityObject> dtoClass : dtoClasses ) {
+                LOGGER.info( "Add annotated class: {}", dtoClass );
+                configuration.addAnnotatedClass( dtoClass );
             }
 
             // complete the configuration with the given file

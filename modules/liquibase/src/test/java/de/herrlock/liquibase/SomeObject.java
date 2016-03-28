@@ -5,8 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.auto.service.AutoService;
+
+import de.herrlock.hibernate.base.EntityObject;
+
+@AutoService( EntityObject.class )
 @Entity
-public class SomeObject {
+public class SomeObject implements EntityObject {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )

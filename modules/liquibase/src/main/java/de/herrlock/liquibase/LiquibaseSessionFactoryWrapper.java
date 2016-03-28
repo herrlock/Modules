@@ -1,7 +1,5 @@
 package de.herrlock.liquibase;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -49,10 +47,6 @@ public final class LiquibaseSessionFactoryWrapper extends SessionFactoryWrapper 
     public Session getTestSession() {
         LOG.entry();
         return getTestSession( TEST_SESSION_FILE_PROPERTY, TEST_SESSION_FILE );
-    }
-
-    static List<String> getDtoClasses() {
-        return getDtoClasses( CLASS_LIST_PROPERTY, CLASS_LIST_DEFAULT_FILE );
     }
 
     @Override
