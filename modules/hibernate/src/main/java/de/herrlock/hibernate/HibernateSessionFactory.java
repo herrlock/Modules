@@ -18,8 +18,6 @@ import de.herrlock.hibernate.base.SessionStatus;
 public final class HibernateSessionFactory extends SessionFactoryBase {
     private static final Logger LOG = LogManager.getLogger();
 
-    private boolean open = true;
-
     HibernateSessionFactory( final SessionStatus status, final String configfileName ) {
         super( status, configfileName );
     }
@@ -48,21 +46,15 @@ public final class HibernateSessionFactory extends SessionFactoryBase {
     @Override
     public void close() {
         synchronized ( HibernateSessionFactory.class ) {
-            if ( !this.open ) {
+            if ( !open() ) {
                 LOG.warn( "SessionFactory aready closed" );
             }
             if ( this.sessionFactory != null ) {
                 this.sessionFactory.close();
                 this.sessionFactory = null;
-                this.open = false;
                 setStatus( SessionStatus.UNSET );
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return java.text.MessageFormat.format( "SessionFactory (Open: {0}, Status: {1})", this.open, this.status );
     }
 
 }

@@ -22,7 +22,6 @@ public final class LiquibaseSessionFactory extends SessionFactoryBase {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final AtomicBoolean DATABASE_INITIALIZED = new AtomicBoolean( false );
-    private boolean open = true;
 
     LiquibaseSessionFactory( final SessionStatus status, final String configfileName ) {
         super( status, configfileName );
@@ -66,22 +65,16 @@ public final class LiquibaseSessionFactory extends SessionFactoryBase {
     @Override
     public void close() {
         synchronized ( LiquibaseSessionFactory.class ) {
-            if ( !this.open ) {
+            if ( !open() ) {
                 LOGGER.warn( "SessionFactory aready closed" );
             }
             if ( this.sessionFactory != null ) {
                 this.sessionFactory.close();
                 this.sessionFactory = null;
-                this.open = false;
                 this.status = SessionStatus.UNSET;
                 DATABASE_INITIALIZED.set( false );
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return java.text.MessageFormat.format( "SessionFactory (Open: {0}, Status: {1})", this.open, this.status );
     }
 
 }
