@@ -31,3 +31,11 @@ task check(group: 'Verification', description: 'Dummy task to call all subprojec
 task clean(type: Delete) {
 	delete project.buildDir
 }
+
+task printVersions() {
+	doLast {
+		subprojects.each {
+			println "${it.name}: ${it.version}"
+		}
+	}
+}
