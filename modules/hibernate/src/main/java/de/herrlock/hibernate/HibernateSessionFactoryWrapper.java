@@ -15,8 +15,6 @@ public final class HibernateSessionFactoryWrapper extends SessionFactoryWrapper 
     public static final String PROD_SESSION_FILE_PROPERTY = "de.herrlock.hibernate.cfg";
     public static final String TEST_SESSION_FILE = "hibernate.test.cfg.xml";
     public static final String TEST_SESSION_FILE_PROPERTY = "de.herrlock.hibernate.test.cfg";
-    public static final String CLASS_LIST_PROPERTY = "de.herrlock.hibernate.classList";
-    public static final String CLASS_LIST_DEFAULT_FILE = "/de/herrlock/hibernate/classList.txt";
 
     public static final HibernateSessionFactoryWrapper SFW = new HibernateSessionFactoryWrapper();
 

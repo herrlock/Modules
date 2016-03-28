@@ -15,8 +15,6 @@ public final class LiquibaseSessionFactoryWrapper extends SessionFactoryWrapper 
     public static final String PROD_SESSION_FILE_PROPERTY = "de.herrlock.liquibase.cfg";
     public static final String TEST_SESSION_FILE = "hibernate.test.cfg.xml";
     public static final String TEST_SESSION_FILE_PROPERTY = "de.herrlock.liquibase.test.cfg";
-    public static final String CLASS_LIST_PROPERTY = "de.herrlock.liquibase.classList";
-    public static final String CLASS_LIST_DEFAULT_FILE = "/de/herrlock/liquibase/classList.txt";
 
     public static final LiquibaseSessionFactoryWrapper SFW = new LiquibaseSessionFactoryWrapper();
 
